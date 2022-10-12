@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Red Hat Form</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Apprenticeship Registration Form</h2>
+        </div>
+        <form class="form" id="form" novalidate>
+            <div class="form-control">
+                <label>First Name *</label>
+                <input type="text" id="firstname" required>
+                <small>Error Msg</small>
+            </div>
+            <div class="form-control">
+                <label>Last Name</label>
+                <input type="text" id="lastname">
+                <small>Error Msg</small>
+            </div>
+            <div class="form-control">
+                <label>Email *</label>
+                <input type="email" id="email">
+                <small>Error Msg</small>
+            </div>
+            <div class="form-control">
+                <label>Mobile Number *</label>
+                <input type="number" id="mobile">
+                <small>Error Msg</small>
+            </div>
+            <div class="form-control">
+                <label>Current Location *</label>
+                <input type="text" id="address">
+                <small>Error Msg</small>
+            </div>
+            <div class="form-control">
+                <label>Gender *</label>
+
+                <small>Error Msg</small>
+            </div>
+
+            <div class="form-control">
+                <label>College / University *</label>
+                <select name="colleges" id="college" value="">
+                    <option selected disabled hidden value="">Please Select Your College / University</option>
+
+                </select>
+
+                <small>Error Msg</small>
+            </div>
+
+            <div class="form-control">
+                <label>Date Of Birth *</label>
+                <input type="date" id="dob">
+
+                <small>Error Msg</small>
+            </div>
+
+            <div class="form-control">
+                <label>Skill Bar</label>
+                <p>HTML</p>
+                <input type="range" min="1" max="100" value="50" id="myRange">
+                <p>Value: <span id="htmlval"></span></p>
+
+            </div>
+
+            <input type="submit" value="Submit" class="btn" name="">
+
+        </form>
+    </div>
+
+    <script type="text/javascript" src="script.js">
+        
+    </script>
+
+</body>
+
+</html>

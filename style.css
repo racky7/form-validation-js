@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Red+Hat+Text&display=swap');
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-font: 'Inter', sans-serif;
+    --secondary-font: 'Red Hat Text', sans-serif;
+}
+
+body {
+    font-family: var(--primary-font);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height:100vh;
+    width:100vw;
+}
+
+.container {
+    width: calc(100vw-65vw);
+    max-width: 100%;
+}
+
+.header {
+    background: black;
+    padding: 20px 0;
+
+}
+
+.header h2 {
+    color: #fff;
+    font-family: var(--primary-font);
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.form {
+    padding: 40px;
+}
+
+.form-control {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-control label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-family: var(--secondary-font);
+}
+
+.form-control input, select {
+    width: 100%;
+    border: 2px solid #ccc;
+    display: block;
+    font-family: var(--secondary-font);
+    font-size: 16px;
+    padding: 10px;
+}
+
+.form-control select {
+    background: white;
+}
+
+.form-control input:focus, select:focus{
+    outline: 0;
+    border-color: #333333;
+}
+
+.form-control.error input{
+    border-color: #e74c3c;
+}
+
+.form-control.error select{
+    border-color: #e74c3c;
+}
+
+.form-control.success input, select{
+    border-color: #ccc;
+}
+
+
+
+.form-control small{
+    visibility: hidden;
+    color: #e74c3c;
+    position:absolute;
+    font-size: 12px;
+    left: 0;
+}
+
+.form-control.error small{
+    visibility: visible;
+}
+
+
+
+@media(max-width:998px) {
+    .container {
+        width: calc(100vw - 10vw);
+        max-width: 100%;
+    }
+}
