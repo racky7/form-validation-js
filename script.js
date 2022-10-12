@@ -4,12 +4,22 @@ const lastname = document.getElementById('lastname');
 const email = document.getElementById('email');
 const mobile = document.getElementById('mobile');
 const address = document.getElementById('address');
+const gender = document.getElementById('gender');
 const college = document.getElementById('college');
 const dob = document.getElementById('dob');
+const htmlslider = document.getElementById('htmlslider');
+const cssslider = document.getElementById('cssslider');
+const jsslider = document.getElementById('jsslider');
+const modal = document.getElementById('modal');
+const modalcontent = document.getElementById('modalcontent');
 
-//API call for fething list of university and colleges
+//variable declaration for values of form data
+let fnameVal, lnameVal, emailVal, mobileVal, addressVal, genderVal, collegeVal, dobVal, htmlVal, cssVal, jsVal;
+
+
 const getColleges = async () => {
     var data;
+    //API call for fething list of university and colleges in india
     data = await fetch("http://universities.hipolabs.com/search?country=India")
         .then(response => response.json())
         .then(result => data = result)
@@ -28,7 +38,6 @@ getColleges();
 
 
 const setErrorMsg = (input, errmsg) => {
-
     const formControl = input.parentElement;
     const small = formControl.querySelector('small');
     formControl.className = 'form-control error';
@@ -37,26 +46,18 @@ const setErrorMsg = (input, errmsg) => {
 
 const removeErrorMsg = (input) => {
     const formControl = input.parentElement;
-    const small = formControl.querySelector('small');
     formControl.className = 'form-control success';
 }
 
 const isEmail = (email) => {
-    // length of email
-    n = email.length;
-
-    // Check position of '@''
-    var indexOfAt = email.indexOf("@");
-    if (indexOfAt == 0 || indexOfAt == n - 1) return false;
-    // Check position of '.'
-    var indexOfDot = email.lastIndexOf('.');
-    if (indexOfDot <= indexOfAt + 2 || indexOfDot == n - 1) return false;
-
-    return true;
+    //applying email regex
+    return email.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
 }
 
 const validateFirstName = () => {
-    const fnameVal = firstname.value.trim();
+    fnameVal = firstname.value.trim();
     if (fnameVal === "") {
         setErrorMsg(firstname, 'First name is required')
     }
@@ -65,7 +66,7 @@ const validateFirstName = () => {
 }
 
 const validateEmail = () => {
-    const emailVal = email.value.trim();
+    emailVal = email.value.trim();
 
     if (emailVal === "") {
         setErrorMsg(email, 'Email is required')
@@ -78,7 +79,7 @@ const validateEmail = () => {
 }
 
 const validatePhone = () => {
-    const mobileVal = mobile.value.trim();
+    mobileVal = mobile.value.trim();
     if (mobileVal === "") {
         setErrorMsg(mobile, 'Mobile number is required')
     }
@@ -90,7 +91,7 @@ const validatePhone = () => {
 }
 
 const validateLocation = () => {
-    const addressVal = address.value.trim();
+    addressVal = address.value.trim();
     if (addressVal === "") {
         setErrorMsg(address, 'Current Location is requried')
     }
@@ -98,8 +99,24 @@ const validateLocation = () => {
 
 }
 
+const validateGender = () => {
+    genderVal = '';
+    if (document.getElementById('male').checked) {
+        genderVal = document.getElementById('male').value;
+    }
+    else if (document.getElementById('female').checked) {
+        genderVal = document.getElementById('female').value;
+    }
+
+    if (genderVal === "") {
+        setErrorMsg(gender, 'Please select your gender.')
+    }
+    else removeErrorMsg(gender)
+
+}
+
 const validateCollege = () => {
-    const collegeVal = college.value;
+    collegeVal = college.value;
     if (collegeVal === "") {
         setErrorMsg(college, 'College is required')
     }
@@ -108,7 +125,7 @@ const validateCollege = () => {
 }
 
 const validateDOB = () => {
-    const dobVal = dob.value;
+    dobVal = dob.value;
     if (dobVal === "") {
         setErrorMsg(dob, 'DOB is required')
     }
@@ -121,11 +138,16 @@ const handleValidation = () => {
 
     validateFirstName();
 
+    //removing white space from lastname value
+    lnameVal = lastname.value.trim();
+
     validateEmail();
 
     validatePhone();
 
     validateLocation();
+
+    validateGender();
 
     validateCollege();
 
@@ -133,7 +155,18 @@ const handleValidation = () => {
 
 }
 
+//form reset function
+const formReset = () => {
+    form.reset();
+    htmlVal.innerText = 0;
+    cssVal.innerText = 0;
+    jsVal.innerText = 0;
+
+}
+
 const finalCheck = () => {
+
+    //counting number of fields having sucess in their classname
 
     let formControls = document.getElementsByClassName('form-control')
     var count = 0;
@@ -143,17 +176,25 @@ const finalCheck = () => {
         }
     }
 
-    if (count == 6) {
-        alert('Form Valid')
-    }
-    else {
-        //Set blur event on each field
-        firstname.addEventListener("blur", validateFirstName);
-        email.addEventListener("blur", validateEmail);
-        mobile.addEventListener("blur", validatePhone);
-        address.addEventListener("blur", validateLocation);
-        college.addEventListener("change", validateCollege);
-        dob.addEventListener("change", validateDOB);
+    //we only require 7 fields having classname success
+
+    if (count == 7) {
+
+        modal.style.display = "block";
+        modalcontent.innerHTML +=
+            `<center>Form is Valid</center> <br>
+      <p>First Name - ${fnameVal}</p> <br>
+      <p>Last Name - ${lnameVal}</p> <br>
+      <p>Email - ${emailVal}</p> <br>
+      <p>Mobile - ${mobileVal}</p> <br>
+      <p>Current Location - ${addressVal}</p> <br>
+      <p>Gender - ${genderVal}</p> <br>
+      <p>College / University - ${collegeVal}</p> <br>
+      <p>DOB - ${dobVal}</p> <br>
+      <p>Skills - HTML : ${htmlVal.innerText}, CSS: ${cssVal.innerText} Javascript: ${jsVal.innerText}  </p> <br>
+    `
+
+        formReset();
     }
 
 
@@ -165,3 +206,31 @@ form.addEventListener('submit', (e) => {
     finalCheck();
 
 })
+
+// skill bar handler
+
+htmlVal = document.getElementById('htmlval');
+
+cssVal = document.getElementById('cssval');
+
+jsVal = document.getElementById('jsval');
+
+const sliderHandler = (slider, outputVal) => {
+
+    slider.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        outputVal.innerText = this.value;
+    }
+
+}
+
+sliderHandler(htmlslider, htmlVal);
+sliderHandler(cssslider, cssVal);
+sliderHandler(jsslider, jsVal);
+
+//close modal handler
+const closeModal = () => {
+    modal.style.display = "none";
+    modalcontent.innerHTML = "";
+}

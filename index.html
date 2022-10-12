@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Red Hat Form</title>
 
@@ -19,7 +19,7 @@
         <form class="form" id="form" novalidate>
             <div class="form-control">
                 <label>First Name *</label>
-                <input type="text" id="firstname" required>
+                <input type="text" onblur="validateFirstName()" id="firstname" required>
                 <small>Error Msg</small>
             </div>
             <div class="form-control">
@@ -29,28 +29,35 @@
             </div>
             <div class="form-control">
                 <label>Email *</label>
-                <input type="email" id="email">
+                <input type="email" onblur="validateEmail()" id="email">
                 <small>Error Msg</small>
             </div>
             <div class="form-control">
                 <label>Mobile Number *</label>
-                <input type="number" id="mobile">
+                <input type="number" onblur="validatePhone()" id="mobile">
                 <small>Error Msg</small>
             </div>
             <div class="form-control">
                 <label>Current Location *</label>
-                <input type="text" id="address">
+                <input type="text" onblur="validateLocation()" id="address">
                 <small>Error Msg</small>
             </div>
             <div class="form-control">
                 <label>Gender *</label>
+                <div style="display: flex; justify-content: flex-start; gap:10px;" id="gender"
+                    onchange="validateGender()">
+                    <input class="radiobtn" type="radio" name="gender" id="male" value="Male">
+                    <p>Male</p>
+                    <input class="radiobtn" type="radio" name="gender" id="female" value="Female">
+                    <p>Female</p>
+                </div>
 
                 <small>Error Msg</small>
             </div>
 
             <div class="form-control">
                 <label>College / University *</label>
-                <select name="colleges" id="college" value="">
+                <select name="colleges" id="college" value="" onchange="validateCollege()">
                     <option selected disabled hidden value="">Please Select Your College / University</option>
 
                 </select>
@@ -60,26 +67,66 @@
 
             <div class="form-control">
                 <label>Date Of Birth *</label>
-                <input type="date" id="dob">
+                <input type="date" id="dob" onchange="validateDOB()">
 
                 <small>Error Msg</small>
             </div>
 
             <div class="form-control">
                 <label>Skill Bar</label>
-                <p>HTML</p>
-                <input type="range" min="1" max="100" value="50" id="myRange">
-                <p>Value: <span id="htmlval"></span></p>
+                <div class="slider">
+                    <p>HTML</p>
+                    <input type="range" min="0" max="100" value="0" step="10" id="htmlslider">
+                    <div class="sliderval">
+                        <p><span id="htmlval">0</span></p>
+                        <p><span>100</span></p>
+                    </div>
+                </div>
+
+                <div class="slider">
+                    <p>CSS</p>
+                    <input type="range" min="0" max="100" value="0" step="10" id="cssslider">
+                    <div class="sliderval">
+                        <p><span id="cssval">0</span></p>
+                        <p><span>100</span></p>
+                    </div>
+                </div>
+
+                <div class="slider">
+                    <p>Javascript</p>
+                    <input type="range" min="0" max="100" value="0" step="10" id="jsslider">
+                    <div class="sliderval">
+                        <p><span id="jsval">0</span></p>
+                        <p><span>100</span></p>
+                    </div>
+                </div>
 
             </div>
 
-            <input type="submit" value="Submit" class="btn" name="">
+            <div class="btns">
+                <input type="submit" value="Submit" class="submitBtn">
+                <input type="button" onclick="formReset()" value="Clear" class="clearBtn">
+
+            </div>
 
         </form>
+
+        <div id="modal" class="modal">
+
+            <div class="modalbody">
+                <span class="closeBtn" onclick="closeModal()">&times;</span>
+                <div id="modalcontent">
+                </div>
+
+            </div>
+
+        </div>
+
+
     </div>
 
     <script type="text/javascript" src="script.js">
-        
+
     </script>
 
 </body>
