@@ -21,7 +21,7 @@ body {
 }
 
 .container {
-    width: calc(100vw-65vw);
+    width: 50vw;
     max-width: 100%;
     box-shadow: 0 2px 3px 0 #b9b9b9;
 
